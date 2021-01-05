@@ -26,10 +26,10 @@ class Rectangulos {
         <br>Alto: ${this.alto}
         <br>Ancho: ${this.ancho}
         <br>Perimetro: ${this.perimetro}
-        <br>Area: ${this.area}`)
+        <br>Area: ${this.area}<br>`)
     }
 
-    //---- GETTER ------
+    //---- GETTER (mostrar) ------
     get mostrarAlto() {
         return this.alto;
     }
@@ -44,7 +44,7 @@ class Rectangulos {
         return this.area;
     }
 
-    //---- SETTER ------
+    //---- SETTER (modificar) ------
     set modificarAlto(nuevoAlto) {
         this.alto = nuevoAlto;
     }
@@ -62,25 +62,28 @@ class Rectangulos {
     }
 }
 
-//----------------INCIO CODIGO ---------------------
-
-// let alto = parseFloat(prompt("Ingrese Altura del Rectangulo:"));
-// let ancho = parseFloat(prompt("Ingrese Ancho del Rectangulo:"));
-// let nuevoRectangulo = new Rectangulos(alto, ancho);
-
-// nuevoRectangulo.calculaPerimetro();
-// nuevoRectangulo.calculaArea();
-// nuevoRectangulo.mostrarDatos();
-
+//----------------INICIO CODIGO ---------------------
 let nrorectang = 1;
-
 do {
-    let alto = parseFloat(prompt("Ingrese Altura del Rectangulo:"));
-    let ancho = parseFloat(prompt("Ingrese Ancho del Rectangulo:"));
-    let nuevoRectangulo = new Rectangulos(alto, ancho);
-    nuevoRectangulo.calculaPerimetro();
-    nuevoRectangulo.calculaArea();
-    document.write(`RECTANGULO NRO: ` + nrorectang);
-    nuevoRectangulo.mostrarDatos();
-    nrorectang++;
+    let varAlto = parseFloat(prompt("Ingrese Altura del Rectangulo:"));
+    if (varAlto > 0) {
+        errorCarga = 0;
+        let varAncho = parseFloat(prompt("Ingrese Ancho del Rectangulo:"));
+        if (varAncho > 0) {
+            // ---- Crea Rectangulo ----
+            errorCarga = 0;
+            let nuevoRectangulo = new Rectangulos(varAlto, varAncho);
+            nuevoRectangulo.calculaPerimetro();
+            nuevoRectangulo.calculaArea();
+            document.write(`<br>RECTANGULO NRO: ${nrorectang}<br>`);
+            nuevoRectangulo.mostrarDatos();
+            nrorectang++;
+        } else {
+            alert("El ancho del Rectangulo debe ser mayor que cero.");
+        }
+    } else {
+        alert("El alto del Rectangulo debe ser mayor que cero.");
+    }
 } while (confirm("Desea continuar ingresando Rectangulos?"));
+
+alert("Proceso Terminado.")

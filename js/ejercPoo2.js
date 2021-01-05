@@ -71,10 +71,9 @@ cuenta.informar();
 dinero = parseFloat(prompt("Ingrese monto a extraer de su cuenta: "));
 if (cuenta.saldo >= dinero) {
     cuenta.extraerDinero(dinero);
-    document.write(`<br>Monto Extracción = ` + dinero);
+    document.write(`<hr><br>Monto Extracción = ` + dinero);
     document.write(`<h4>Datos Saldo Cuenta Bancaria</h4>`);
     cuenta.informar();
-
 } else {
     alert("El monto a extraer es superior al Saldo de su cuenta")
 }

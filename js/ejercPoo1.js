@@ -57,6 +57,6 @@ if (accion == "S") {
         auto.onoff = 0;
         auto.mostrarDatos();
     } else {
-        document.write("No ingresó S o N")
+        document.write("No ingresó S o N");
     }
 }
