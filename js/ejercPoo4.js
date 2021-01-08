@@ -14,15 +14,12 @@ class Productos {
     }
 
     imprimeDatos() {
-        console.log("en metodo imprimedatos");
         for (let imprime = 1;
-            // (imprime <= arrayProductos.length); imprime++) {
-            (imprime <= 3); imprime++) {
-            console.log(" dentro de for imprimedatos");
-            console.log(" valor imprime:" + imprime);
-            console.log("objeto producto" + arrayProductos[imprime.codigo]);
-            document.write("<h3>" + "Producto Nro" + imprime + "</h3>" + "<br>");
-            document.write("Codigo Producto: " + arrayProductos[imprime.codigo]);
+            (imprime < arrayProductos.length); imprime++) {
+            document.write(`<h3>Datos del Producto Nro ${imprime}</h3>
+            Código: ${arrayProductos[imprime].codigo}
+            <br>Nombre: ${arrayProductos[imprime].nombre}
+            <br>Precio: ${arrayProductos[imprime].precio}<br>`)
         }
     }
 
@@ -66,10 +63,9 @@ for (let i = 1;
         if (nuevoPcio > 0) {
             let producto = new Productos(i, nuevoProd, nuevoPcio);
             arrayProductos[i] = producto;
-            console.log(arrayProductos[i].codigo);
-            console.log(arrayProductos[i].nombre);
-            console.log(arrayProductos[i].precio);
             producto.mostrarDatos();
+            // imprimeDatos() no funciona fuera del FOR
+            producto.imprimeDatos();
         } else {
             alert("El precio del producto debe ser mayor que 0.");
         }
@@ -78,6 +74,7 @@ for (let i = 1;
     }
 }
 
-// ---------NO FUNCIONA
-arrayProductos.imprimeDatos();
+// NO FUNCIONA FUERA DEL FOR
+// producto.imprimeDatos();
+
 document.write("<br>" + "Se ingresaron los 3 productos requeridos.");
