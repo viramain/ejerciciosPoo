@@ -21,7 +21,7 @@ class Libros {
     }
 
     mostrarLibros() {
-        document.write(`El Libro ${this.titulo} con ISBN ${this.ISBN} creado por el autor ${this.autor} tiene ${this.nroPaginas} páginas. <br>`);
+        document.write(`El Libro ${this.mostrarTitulo} con ISBN ${this.mostrarISBN} creado por el autor ${this.mostrarAutor} tiene ${this.mostrarNroPaginas} páginas. <br>`);
     }
 
     get mostrarISBN() {

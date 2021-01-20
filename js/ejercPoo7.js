@@ -51,42 +51,63 @@ class Agenda {
         arrayContactos.push(nuevoContacto);
     }
 
+    buscaContacto(buscaNombre) {
+        let encontrado = 0;
+        for (let i = 0; i < arrayContactos.length; i++) {
+            if (arrayContactos[i].nombre == buscaNombre) {
+                encontrado = 1;
+                document.write(`<hr><h3>Contacto Encontrado</h3>
+                Nombre: ${arrayContactos[i].nombre}
+                <br> Teléfono: ${arrayContactos[i].telefono}<br><hr>`);
+                break;
+            }
+        }
+        if (encontrado == 0) {
+            alert(`El Contacto No fue encontrado en la Agenda.`);
+        }
+    }
+
+    eliminarContacto(eliminaNombre) {
+        let eliminado = 0;
+        for (let i = 0; i < arrayContactos.length; i++) {
+            if (arrayContactos[i].nombre == eliminaNombre) {
+                arrayContactos.splice(i, 1);
+                eliminado = 1;
+                alert(`El Contacto ${eliminaNombre} ha sido eliminado de la Agenda.`)
+                break;
+            }
+        }
+        if (eliminado == 0) {
+            alert(`El Contacto No fue encontrado para ser eliminado de la Agenda.`)
+        }
+    }
+
     listarContactos() {
         document.write("<h3>Lista de Contactos</h3>");
         for (let impr = 0; impr < arrayContactos.length; impr++) {
             document.write(`
-            <br>Nombre: ${arrayContactos[impr].nombre}
+            Nombre: ${arrayContactos[impr].nombre}
             <br>Teléfono: ${arrayContactos[impr].telefono}<hr>`);
         }
     }
 
     agendaLlena() {
-        let llena = this.huecosLibres();
-
-        if (llena != 0) {
-            alert("La Agenda tiene espacios disponibles.")
+        if (arrayContactos.length > 10) {
+            document.write(`<br>La Agenda está llena.<br>`)
         } else {
-            alert("La Agenda llena.")
+            document.write(`<br>La Agenda no está llena.<br>`)
         }
     }
 
     huecosLibres() {
         let libres = 0;
-        if (arrayContactos.length > 0) {
-            for (let cont = 0; cont < arrayContactos.length; cont++) {
-                if (arrayContactos[cont].nombre == null && arrayContactos[cont].telefono == null) {
-                    libres++;
-                } else {
-                    libres = 0;
-                }
-            }
+        if (arrayContactos.length < 10) {
+            libres = 10 - arrayContactos.length;
+            document.write(`<br>Existen ${libres} espacios disponibles.<br>`)
         } else {
-            alert("La Agenda está vacía.");
-            libres = 0;
+            document.write(`<br>No Existen espacios libres.<br>`)
         }
-        return libres;
     }
-
 }
 // se define arreglo que almacenara los contactos
 let arrayContactos = [];
@@ -96,7 +117,7 @@ let existeContacto = 0;
 
 // ------ Bucle para ingresar hasta 10 contactos --------
 do {
-    let nuevoNombre = prompt("Ingrese Nombre:").toUpperCase();
+    let nuevoNombre = prompt("Ingrese Nombre:").toUpperCase().trimEnd().trimStart();
     let nuevoTelefono = prompt("Ingrese Telefono");
     nuevoContacto = new Agenda(nuevoNombre, nuevoTelefono);
 
@@ -121,20 +142,21 @@ while (confirm("Desea seguir ingresando Contactos?") && (cantContactos < 10));
 //-------------- FIN BUCLE PARA INGRESAR DATOS ----------
 
 //---- listar todos los Contactos de la Agenda ------
-this.listarContactos();
+nuevoContacto.listarContactos();
 
 //---- Cantidad de huecos libres en la Agenda ---------
-let cantHuecos = this.huecosLibres();
-document.write("Cantidad de huecos libres en la Agenda: " + cantHuecos);
+nuevoContacto.huecosLibres();
 
+//--- indica si la Agenda esta llena------------------
+nuevoContacto.agendaLlena();
 
-//----
+// ---- Buscar contacto x nombre y mostrar telefono ---
+let buscaNomb = prompt("Ingrese Nombre del contacto a BUSCAR: ").toUpperCase().trimEnd().trimStart();
+nuevoContacto.buscaContacto(buscaNomb);
 
-// agregar un elemento en una posicion en particular
-//personajes.splice(posicion donde se agregaelemento, si quiero borrar un elemento (cantidad) , cuan es el valor de elemento)
-// personajes.splice(1, 0, "Lisa")
-// mostrarPersonajes("Agregar un elemento en una posicion del arreglo en particular");
-
-// eliminar un elemento de una posicion particular (posicion que quiero borrar, cuantos elementos quiero borrar desde la posicion que indique)
-// personajes.splice(4, 2);
-// mostrarPersonajes("Eliminar un elemento en una posicion del arreglo en particular");
+// ---- Eliminar contacto --------
+let eliminaNomb = prompt("Ingrese Nombre del contacto a ELIMINAR: ").toUpperCase().trimEnd().trimStart();
+nuevoContacto.eliminarContacto(eliminaNomb);
+//------------------------------------------------------
+//---- listar todos los Contactos de la Agenda ------
+nuevoContacto.listarContactos();

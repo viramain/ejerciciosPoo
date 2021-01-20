@@ -14,15 +14,15 @@ class Productos {
     }
 
     // listado de los productos ingresados
-    imprimeDatos() {
-        for (let imprime = 0;
-            (imprime < arrayProductos.length); imprime++) {
-            document.write(`<h3>Datos del Producto Nro ${imprime+1}</h3>
-            Código: ${arrayProductos[imprime].codigo}
-            <br>Nombre: ${arrayProductos[imprime].nombre}
-            <br>Precio: ${arrayProductos[imprime].precio}<br>`)
-        }
-    }
+    // imprimeDatos() {
+    //     for (let imprime = 0;
+    //         (imprime < arrayProductos.length); imprime++) {
+    //         document.write(`<h3>Datos del Producto Nro ${imprime+1}</h3>
+    //         Código: ${arrayProductos[imprime].codigo}
+    //         <br>Nombre: ${arrayProductos[imprime].nombre}
+    //         <br>Precio: ${arrayProductos[imprime].precio}<br>`)
+    //     }
+    // }
 
     // muestra el producto recien ingresado
     mostrarDatos() {
@@ -66,7 +66,7 @@ for (let i = 0;
             let producto = new Productos(i + 1, nuevoProd, nuevoPcio);
             arrayProductos[i] = producto;
             producto.mostrarDatos();
-            // producto.imprimeDatos();
+            // producto.imprimeDatos(); ACA SI FUNCIONA
         } else {
             alert("El precio del producto debe ser mayor que 0.");
         }
@@ -76,38 +76,8 @@ for (let i = 0;
 
 }
 
+
 // NO FUNCIONA FUERA DEL FOR
 // producto.imprimeDatos();
 
 document.write("<br>" + "Se ingresaron los 3 productos requeridos.");
-
-// class Product
-// {
-// 	constructor(code, name, price)
-// 	{
-// 		this._code = code;
-// 		this._name = name;
-// 		this._price = price;
-// 	}
-
-// 	printData(pos)
-// 	{
-// 		console.group(`Producto ${pos}:`);
-// 		console.log(`Codigo: ${this._code}`);
-// 		console.log(`Nombre: ${this._name}`);
-// 		console.log(`Precio: $${this._price}`);
-// 		console.groupEnd();
-// 	}
-// }
-
-// let array = [];
-// let objOne = new Product(1, 'Smartphone', 42000);
-// let objTwo = new Product(2, 'Smart-TV', 183000);
-// let objThree = new Product(3, 'Notebook', 135000);
-
-// array = [objOne, objTwo, objThree];
-
-// for (let i=0; i<array.length; i++)
-// {
-// 	array[i].printData(i+1);
-// }
