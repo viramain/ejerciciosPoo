@@ -56,9 +56,12 @@ class Agenda {
         for (let i = 0; i < arrayContactos.length; i++) {
             if (arrayContactos[i].nombre == buscaNombre) {
                 encontrado = 1;
-                document.write(`<hr><h3>Contacto Encontrado</h3>
+                // document.write(`<hr><h3>Contacto Encontrado</h3>
+                // Nombre: ${arrayContactos[i].nombre}
+                // <br> Teléfono: ${arrayContactos[i].telefono}<br><hr>`);
+                alert(`CONTACTO ENCONTRADO:
                 Nombre: ${arrayContactos[i].nombre}
-                <br> Teléfono: ${arrayContactos[i].telefono}<br><hr>`);
+                Teléfono: ${arrayContactos[i].telefono}`);
                 break;
             }
         }
@@ -82,6 +85,15 @@ class Agenda {
         }
     }
 
+    mostrarContacto() {
+        alert(`NUEVO CONTACTO: 
+            Nombre: ${this.nombre}
+            Teléfono: ${this.telefono}`);
+        // document.write(`<h3>NUEVO CONTACTO:</h3>
+        //     Nombre: ${this.nombre}
+        //     <br>Teléfono: ${this.telefono}<hr>`);
+    }
+
     listarContactos() {
         document.write("<h3>Lista de Contactos</h3>");
         for (let impr = 0; impr < arrayContactos.length; impr++) {
@@ -93,9 +105,9 @@ class Agenda {
 
     agendaLlena() {
         if (arrayContactos.length > 10) {
-            document.write(`<br>La Agenda está llena.<br>`)
+            alert(`La Agenda está llena.`)
         } else {
-            document.write(`<br>La Agenda no está llena.<br>`)
+            alert(`La Agenda NO está llena.`)
         }
     }
 
@@ -103,60 +115,87 @@ class Agenda {
         let libres = 0;
         if (arrayContactos.length < 10) {
             libres = 10 - arrayContactos.length;
-            document.write(`<br>Existen ${libres} espacios disponibles.<br>`)
+            alert(`Existen ${libres} espacios disponibles.`)
         } else {
-            document.write(`<br>No Existen espacios libres.<br>`)
+            alert(`No Existen espacios libres.`)
         }
     }
 }
+
+//---- INICIO DE CODIGO ------
 // se define arreglo que almacenara los contactos
 let arrayContactos = [];
 // contador de contactos para ingresar solo hasta 10 contactos
 let cantContactos = 0;
 let existeContacto = 0;
 
-// ------ Bucle para ingresar hasta 10 contactos --------
 do {
-    let nuevoNombre = prompt("Ingrese Nombre:").toUpperCase().trimEnd().trimStart();
-    let nuevoTelefono = prompt("Ingrese Telefono");
-    nuevoContacto = new Agenda(nuevoNombre, nuevoTelefono);
+    let opcion = prompt("CONTACTOS Ingrese: 1-Añadir 2-Listar 3-Buscar 4-Eliminar 5-Agenda Llena 6-Huecos Libres: ");
+    console.log("opcion:" + opcion);
 
-    if (cantContactos != 0) {
-        // Verifica si el contacto existe, antes de agregarlo a la agenda
-        let existeContacto = nuevoContacto.existeContacto(nuevoNombre);
-        if (existeContacto == 0) {
-            // --- Agrega Contacto ----
-            cantContactos++;
-            nuevoContacto.aniadirContacto();
-        } else {
-            // -- NO agrega contacto ---
-            alert("Contacto ya Existente.");
-        }
-    } else {
-        // la primera vez agrega contacto SIN verificar que existe
-        cantContactos++;
-        nuevoContacto.aniadirContacto(nuevoContacto);
+    switch (opcion) {
+        case `1`:
+            do {
+                //------ Añadir contacto --------
+                let nuevoNombre = prompt("Ingrese Nombre:").toUpperCase().trimEnd().trimStart();
+                let nuevoTelefono = prompt("Ingrese Telefono");
+                nuevoContacto = new Agenda(nuevoNombre, nuevoTelefono);
+
+                if (cantContactos != 0) {
+                    // Verifica si el contacto existe, antes de agregarlo a la agenda
+                    let existeContacto = nuevoContacto.existeContacto(nuevoNombre);
+                    if (existeContacto == 0) {
+                        // --- Agrega Contacto ----
+                        cantContactos++;
+                        nuevoContacto.aniadirContacto();
+                        nuevoContacto.mostrarContacto();
+                    } else {
+                        // -- NO agrega contacto ---
+                        alert("Contacto ya Existente.");
+                    }
+                } else {
+                    // la primera vez agrega contacto SIN verificar que existe
+                    cantContactos++;
+                    nuevoContacto.aniadirContacto(nuevoContacto);
+                    nuevoContacto.mostrarContacto();
+                }
+            } while (confirm("Desea seguir ingresando Contactos?") && (cantContactos < 10));
+            break;
+        case `2`:
+            //---- listar todos los Contactos de la Agenda ------
+            if (arrayContactos.length > 0) {
+                nuevoContacto.listarContactos();
+            } else {
+                alert("No existen Contactos para listar.");
+            }
+            break;
+        case `3`:
+            // ---- Buscar contacto x nombre y mostrar telefono ---
+            if (arrayContactos.length > 0) {
+                let buscaNomb = prompt("Ingrese Nombre del contacto a BUSCAR: ").toUpperCase().trimEnd().trimStart();
+                nuevoContacto.buscaContacto(buscaNomb);
+            } else {
+                alert("No existen Contactos para Buscar.");
+            }
+            break;
+        case `4`:
+            if (arrayContactos.length > 0) {
+                // ---- Eliminar contacto --------
+                let eliminaNomb = prompt("Ingrese Nombre del contacto a ELIMINAR: ").toUpperCase().trimEnd().trimStart();
+                nuevoContacto.eliminarContacto(eliminaNomb);
+            } else {
+                alert("No existen Contactos para Eliminar.");
+            }
+            break;
+        case `5`:
+            //--- indica si la Agenda esta llena------------------
+            nuevoContacto.agendaLlena();
+            break;
+        case `6`:
+            //---- Cantidad de huecos libres en la Agenda ---------
+            nuevoContacto.huecosLibres();
+            break;
+        default:
+            alert("Opcion No disponible.")
     }
-}
-while (confirm("Desea seguir ingresando Contactos?") && (cantContactos < 10));
-//-------------- FIN BUCLE PARA INGRESAR DATOS ----------
-
-//---- listar todos los Contactos de la Agenda ------
-nuevoContacto.listarContactos();
-
-//---- Cantidad de huecos libres en la Agenda ---------
-nuevoContacto.huecosLibres();
-
-//--- indica si la Agenda esta llena------------------
-nuevoContacto.agendaLlena();
-
-// ---- Buscar contacto x nombre y mostrar telefono ---
-let buscaNomb = prompt("Ingrese Nombre del contacto a BUSCAR: ").toUpperCase().trimEnd().trimStart();
-nuevoContacto.buscaContacto(buscaNomb);
-
-// ---- Eliminar contacto --------
-let eliminaNomb = prompt("Ingrese Nombre del contacto a ELIMINAR: ").toUpperCase().trimEnd().trimStart();
-nuevoContacto.eliminarContacto(eliminaNomb);
-//------------------------------------------------------
-//---- listar todos los Contactos de la Agenda ------
-nuevoContacto.listarContactos();
+} while (confirm("Desea seguir ingresando opciones?"));
