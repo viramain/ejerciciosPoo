@@ -28,6 +28,25 @@ class Agenda {
         this.telefono = telefonoP;
     }
 
+    mostrarContacto() {
+        alert(`NUEVO CONTACTO: 
+            Nombre: ${this.nombre}
+            Teléfono: ${this.telefono}`);
+        // document.write(`<h3>NUEVO CONTACTO:</h3>
+        //     Nombre: ${this.nombre}
+        //     <br>Teléfono: ${this.telefono}<hr>`);
+    }
+
+    // lista cuando termine la ejecucion del programa
+    listarContactos() {
+        document.write("<h3>Lista de Contactos</h3>");
+        for (let impr = 0; impr < arrayContactos.length; impr++) {
+            document.write(`
+            Nombre: ${arrayContactos[impr].nombre}
+            <br>Teléfono: ${arrayContactos[impr].telefono}<hr>`);
+        }
+    }
+
     existeContacto(nombreP) {
         let existe = 0;
         if (arrayContactos.length > 0) {
@@ -56,9 +75,11 @@ class Agenda {
         for (let i = 0; i < arrayContactos.length; i++) {
             if (arrayContactos[i].nombre == buscaNombre) {
                 encontrado = 1;
+                // NO IMPRIME EN EL MOMENTO, SINO CUANDO TERMINA EL PROGRAMA!!!!!????
                 // document.write(`<hr><h3>Contacto Encontrado</h3>
                 // Nombre: ${arrayContactos[i].nombre}
                 // <br> Teléfono: ${arrayContactos[i].telefono}<br><hr>`);
+
                 alert(`CONTACTO ENCONTRADO:
                 Nombre: ${arrayContactos[i].nombre}
                 Teléfono: ${arrayContactos[i].telefono}`);
@@ -68,6 +89,8 @@ class Agenda {
         if (encontrado == 0) {
             alert(`El Contacto No fue encontrado en la Agenda.`);
         }
+
+
     }
 
     eliminarContacto(eliminaNombre) {
@@ -85,23 +108,7 @@ class Agenda {
         }
     }
 
-    mostrarContacto() {
-        alert(`NUEVO CONTACTO: 
-            Nombre: ${this.nombre}
-            Teléfono: ${this.telefono}`);
-        // document.write(`<h3>NUEVO CONTACTO:</h3>
-        //     Nombre: ${this.nombre}
-        //     <br>Teléfono: ${this.telefono}<hr>`);
-    }
 
-    listarContactos() {
-        document.write("<h3>Lista de Contactos</h3>");
-        for (let impr = 0; impr < arrayContactos.length; impr++) {
-            document.write(`
-            Nombre: ${arrayContactos[impr].nombre}
-            <br>Teléfono: ${arrayContactos[impr].telefono}<hr>`);
-        }
-    }
 
     agendaLlena() {
         if (arrayContactos.length > 10) {
@@ -131,7 +138,7 @@ let existeContacto = 0;
 
 do {
     let opcion = prompt("CONTACTOS Ingrese: 1-Añadir 2-Listar 3-Buscar 4-Eliminar 5-Agenda Llena 6-Huecos Libres: ");
-    console.log("opcion:" + opcion);
+    // console.log("opcion:" + opcion);
 
     switch (opcion) {
         case `1`:
